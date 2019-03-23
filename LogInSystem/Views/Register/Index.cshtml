@@ -1,0 +1,84 @@
+﻿@using LogInSystem.Models
+@model AccountModel.RegisterViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="RegisterForm">
+                <h4 id="h4-register">Register</h4>
+                @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Confirm Password", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { placeholder = "First Name", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { placeholder = "Last Name", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { placeholder = "Phone", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    if (ViewData["InsertDB"] != null)
+                    {
+                        if ((bool)ViewData["InsertDB"])
+                        {
+                            <div class="form-group">
+                                @Html.Label(ViewData["success"].ToString(), new { @class = "register-success" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.Label(ViewData["error"].ToString(), new { @class = "register-not-success" })
+                            </div>
+                        }
+                    }
+
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+

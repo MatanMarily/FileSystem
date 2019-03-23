@@ -1,0 +1,71 @@
+﻿@using LogInSystem.Models
+@model AccountModel.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                <h4 id="h4-sign-in">Sign in</h4>
+                @using (Html.BeginForm("Signin", "Signin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+
+                    if (ViewData["Signin"] != null)
+                    {
+                        if ((bool)ViewData["Signin"])
+                        {
+                            <div class="form-group">
+                                @Html.Label(ViewData["success"].ToString(), new { @class = "login-success" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.Label(ViewData["error"].ToString(), new { @class = "login-not-success" })
+                            </div>
+                        }
+                    }
+
+                    <div class="form-group">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "Index", "ForgotPassword")
+                    </p>
+                }
+            </section>
+        </div>
+    </div>
+</body>
+</html>
