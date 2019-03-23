@@ -11,7 +11,7 @@ namespace LogInSystem.DB
         static private DataTable DataTable;
         static readonly private string ConnectionString = ConfigurationManager.ConnectionStrings["DB-connection"].ConnectionString;
 
-        public static DataTable SELECT(string query)
+        public static DataTable SELECT(string query, string[] key, dynamic[] values)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -21,6 +21,13 @@ namespace LogInSystem.DB
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
                     {
                         DataTable = new DataTable();
+                        for (int i = 0; i < key.Length; i++)
+                        {
+                            if (string.IsNullOrEmpty(values[i]))
+                                adapter.SelectCommand.Parameters.AddWithValue("@" + key[i], DBNull.Value);
+                            else
+                                adapter.SelectCommand.Parameters.AddWithValue("@" + key[i], values[i]);
+                        }
                         adapter.Fill(DataTable);
                     }
                 }

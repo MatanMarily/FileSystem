@@ -23,15 +23,11 @@ namespace LogInSystem.Models
 
         public class User
         {
-            [Required]
-            [Display(Name = "Email")]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
 
-            [Required]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         public class RegisterViewModel

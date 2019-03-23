@@ -1,0 +1,46 @@
+﻿@using LogInSystem.Models
+@model AccountModel.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@{
+    if (Session["Email"] == null)
+    {
+        Response.Redirect("~/SignIn/Index");
+        return;
+    }
+}
+
+@{ string fullName = Model.FirstName + " " + Model.LastName; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Wellcom.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="WellcomForm">
+                <h2>Wellcom @fullName</h2>
+                @using (Html.BeginForm("Logout", "Wellcom", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Logout" class="btn btn-default" />
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

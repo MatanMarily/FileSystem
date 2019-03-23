@@ -129,6 +129,7 @@
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
+    <Compile Include="Controllers\WellcomController.cs" />
     <Compile Include="DB\Queries.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,6 +145,7 @@
     <Content Include="Content\ForgotPassword.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
+    <Content Include="Content\Wellcom.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -174,6 +176,7 @@
     <Content Include="Views\SignIn\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\ForgotPassword\Index.cshtml" />
+    <Content Include="Views\Wellcom\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,11 +30,19 @@ namespace LogInSystem.Controllers
                     string[] key = { "Email", "Password" };
                     string[] valus = { model.Email, model.Password };
 
+                    if (model.RememberMe)
+                    {
+                        HttpCookie cookie = new HttpCookie("YourAppLogin");
+                        cookie.Values.Add("email", model.Email);
+                        cookie.Values.Add("password", model.Password);
+                        cookie.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(cookie);
+                    }
+
                     if (await Task.Run(() => Queries.ExistParameters(query, key, valus)))
                     {
-                        ViewData["Signin"] = true;
-                        ViewData["success"] = "Sign in successfully";
-                        return View("Index");
+                        Session["Email"] = model.Email;
+                        return RedirectToAction("Index", "Wellcom", model);
                     }
                     else
                     {
